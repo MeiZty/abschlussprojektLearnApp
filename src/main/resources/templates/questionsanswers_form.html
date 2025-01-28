@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Ersteller Modus</title>
+    <link rel="stylesheet" type="text/css" th:href="@{/webjars/bootstrap/css/bootstrap.min.css}">
+</head>
+<body>
+<nav class="navbar navbar-expand-sm bg-danger navbar-dark">
+    <ul class="navbar-nav">
+        <li class="nav-item active">
+            <a class="nav-link" th:href="@{/questionsanswers/new}">Ersteller Modus</a>
+        </li>
+        <li class="nav-item active">
+            <a class="nav-link" th:href="@{/questionsanswers?id=1}">Learn Modus</a>
+        </li>
+    </ul>
+</nav>
+<form th:action="@{/categories/save}" th:object="${category}" method="post">
+    <input type="hidden" th:field="*{id}">
+    <div class="m-3">
+        <div style="float: right; margin-right: 312px">
+            <button type="submit" class="btn btn-primary">Speichern</button>
+        </div>
+        <div class="form-group mx-3">
+            <div class="col-sm-3" style="max-width: 50%; float: right; margin-right: 5px; width: 300px">
+                <input type="text" th:field="*{name}" class="form-control" required/>
+            </div>
+        </div>
+        <div class="col-form-label" style="float: right; margin-right: 10px">Kategorie erstellen</div>
+    </div>
+</form>
+<br>
+<form th:action="@{/questionsanswers/save}" th:object="${questionsanswers}" method="post" class="container">
+    <input type="hidden" th:field="*{id}">
+    <div class="m-3">
+        <div class="form-group mx-0">
+            <div class="col-sm-3" style="max-width: 50%; float: right; width: 401px">
+                <select th:field="*{category}" class="form-control" required>
+                    <th:block th:each="cat : ${listCategories}">
+                        <option th:text="${cat.name}" th:value="${cat.id}">
+                        </option>
+                    </th:block>
+                </select>
+            </div>
+            <div class="col-form-label" style="float: right; margin-right: 10px">Kategorie auswählen</div>
+        </div>
+        <br>
+        <div class="form-group mx-auto">
+            <label class="col-form-label ">Frage</label>
+            <div class="form-group mx-auto">
+                <textarea type="text" th:field="*{question}" class="form-control" required
+                          style="height: 225px"></textarea>
+            </div>
+        </div>
+        <div class="form-group mx-auto">
+            <label class="col-form-label ">Antwort</label>
+            <div >
+                <textarea type="text" th:field="*{answer}" class="form-control"  required
+                          style="height: 225px"></textarea>
+            </div>
+        </div>
+        <div class="text-center p-3">
+            <button type="submit" class="btn btn-primary">Speichern</button>
+        </div>
+    </div>
+</form>
+</body>
+</html>

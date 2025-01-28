@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Register</title>
+    <link rel="stylesheet" type="text/css" th:href="@{/webjars/bootstrap/css/bootstrap.min.css}">
+</head>
+<body>
+<section class="vh-100" style="background-color: rgba(124,128,124,0.69);">
+    <div class="container py-5 h-100">
+        <div class="row d-flex justify-content-center align-items-center h-100">
+            <div class="col-12 col-md-8 col-lg-6 col-xl-5">
+                <div class="card shadow-2-strong" style="border-radius: 1rem;">
+                    <div class="card-body p-5 text-center">
+                        <form method="post" action="/register" th:object="${register}">
+                            <h2>Registration</h2>
+                            <div class="form-outline mb-4">
+                                <i class="fa fa-user" aria-hidden="true"></i>
+                                <input class="form-control form-control-lg" type="text" name="login" placeholder="Login"
+                                       required>
+                            </div>
+                            <div class="form-outline mb-4">
+                                <i aria-hidden="true"></i>
+                                <input class="form-control form-control-lg" type="email" name="email"
+                                       placeholder="Email">
+                            </div>
+                            <div class="form-outline mb-4">
+                                <i aria-hidden="true"></i>
+                                <input class="form-control form-control-lg" type="password" name="password"
+                                       placeholder="Password" pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}"
+                                       title="Must contain at least one number and one uppercase and lowercase letter, and at least 8 or more characters"
+                                       required>
+                            </div>
+                            <input class="btn btn-primary btn-lg btn-block form-control form-control-lg" type="submit"
+                                   name="sign-in" value="Anmelden">
+                            <hr class="my-4">
+                            <a  class="btn btn-primary btn-lg btn-block form-control form-control-lg" href="/login">Zurück zum Login</a>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+<div>
+
+</div>
+</body>
+</html>

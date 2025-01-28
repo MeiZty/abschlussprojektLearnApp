@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Learn Modus</title>
+    <link rel="stylesheet" type="text/css" th:href="@{/webjars/bootstrap/css/bootstrap.min.css}">
+</head>
+<body>
+<nav class="navbar navbar-expand-sm bg-danger navbar-dark">
+    <ul class="navbar-nav">
+        <li class="nav-item active">
+            <a class="nav-link" th:href="@{/questionsanswers/new}">Ersteller Modus</a>
+        </li>
+        <li class="nav-item active">
+            <a class="nav-link" th:href="@{/questionsanswers?id=1}">Learn Modus</a>
+        </li>
+    </ul>
+</nav>
+<form th:action="@{/questionsanswers}" th:method="get">
+    <div style="margin-top: 20px">
+        <div class="form-group mx-3">
+            <div class="col-sm-3" style="max-width: 50%; float: right; width: 410px; margin-right: 296px">
+                <select name="id" id="categorySelect" class="form-control" required onchange="this.form.submit()">
+                    <th:block th:each="category : ${listCategories}">
+                        <option th:text="${category.name}" th:value="${category.id}"
+                                th:selected="${category.id == selectedCategoryId}"></option>
+                    </th:block>
+                </select>
+            </div>
+        </div>
+    </div>
+</form>
+<br>
+<form class="container">
+    <div th:each="QA, stat : ${questionsAnswersList}" class="form-group mx-auto" style="margin-top: 20px">
+        <div th:if="${stat.index == currentQuestionsAnswersIndex}">
+            <label>Frage</label>
+            <div th:text="${QA.question}" class="form-control" style="height: 225px"></div>
+            <br>
+            <div style="text-align: center">
+                <a class="btn btn-primary" id="show-answer-button" onclick="toggleAnswer()" >Show Answer</a>
+            </div>
+            <label>Antwort</label>
+            <div id="answer-container" class="form-control" style="height: 225px">
+                <div th:text="${QA.answer}"  id="answer-text" style="display: none"></div>
+            </div>
+        </div>
+    </div>
+</form>
+<div style="margin-top: 20px">
+    <a th:disabled="${currentQuestionsAnswersIndex > 0}" th:href="@{/questionsanswers(id=${selectedCategoryId}, currentIndex=${currentQuestionsAnswersIndex - 1})}" class="btn btn-primary" style="margin-left: 312px">Back</a>
+    <a th:disabled="${currentQuestionsAnswersIndex < questionsAnswersList.size() - 1}" th:href="@{/questionsanswers(id=${selectedCategoryId}, currentIndex=${currentQuestionsAnswersIndex + 1})}" class="btn btn-primary" style="float: right; margin-right: 312px">Next</a>
+</div>
+<script>
+    function toggleAnswer() {
+        var answerText = document.getElementById("answer-text");
+        if (answerText.style.display === "none" || answerText.style.display === "") {
+            answerText.style.display = "block";
+        } else {
+            answerText.style.display = "none";
+        }
+    }
+</script>
+</body>
+</html>
